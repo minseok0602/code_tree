@@ -9,22 +9,24 @@ public class Main {
         long start = 1L;
         long end = n*n;
         long mid = 0;
+        long answer = 0;
         while(start<end){
             mid = (start+end)/2;
             // mid가 가질 수 있는 최대 등수 -> mid보다 큰 것의 개수를 구해야함
             long max_rank = calculate_bigger_count(mid);
             long min_rank = calculate_smaller_count(mid);
             if(min_rank<=k&&max_rank>=k){
-                System.out.println(mid);
-                return;
+                answer = mid;
+                start = mid +1;
             }
-            if(min_rank>k){
+            else if(min_rank>k){
                 end = mid;
             }
             else {
                 start = mid + 1;
             }
         }
+        System.out.print(answer);
 
     }
     static public long calculate_bigger_count(long num){
@@ -63,7 +65,7 @@ public class Main {
                 mid = (start+end)/2;
                 // 이 mid값이 num보다 크거나 같다 -> mid를 더 줄여서 더 작은 mid를 찾아야함
                 if(i*mid>=num){
-                    end = mid - 1;
+                    end = mid;
                 }
                 // 이 mid값이 num보다 작다 -> mid를 더 늘려서 이거보다 더 큰 mid가 가능한지 찾아봐야함
                 else{
